@@ -1,3 +1,7 @@
+/* =========================
+RESET GLOBAL
+========================= */
+
 *{
 margin:0;
 padding:0;
@@ -5,16 +9,23 @@ box-sizing:border-box;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-/* BODY */
+/* =========================
+BODY BASE
+========================= */
 
 body{
-background:#f3f3f3;
 min-height:100vh;
 display:flex;
 flex-direction:column;
 align-items:center;
 animation:fadePage .35s ease;
 }
+
+/* NÃO define cor aqui (controlado pelo theme.css) */
+
+/* =========================
+ANIMAÇÃO
+========================= */
 
 @keyframes fadePage{
 from{
@@ -27,21 +38,34 @@ transform:translateY(0);
 }
 }
 
-/* HEADER */
+/* =========================
+HEADER
+========================= */
 
 .top-white{
-background:#fff;
 padding:20px 20px 28px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 border-bottom-left-radius:32px;
 border-bottom-right-radius:32px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
 width:100%;
 max-width:480px;
 border-bottom:2px solid rgba(242,85,34,0.2);
 }
+
+/* sombra controlada pelo tema */
+body[data-theme="light"] .top-white{
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+body[data-theme="dark"] .top-white{
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+/* =========================
+LOGO
+========================= */
 
 .logo-area{
 display:flex;
@@ -59,17 +83,39 @@ object-fit:cover;
 .logo-text-dark{
 font-weight:900;
 letter-spacing:1px;
-color:#000;
 font-size:1.1rem;
 }
+
+/* cor controlada pelo tema */
+body[data-theme="light"] .logo-text-dark{
+color:#000;
+}
+
+body[data-theme="dark"] .logo-text-dark{
+color:#fff;
+}
+
+/* =========================
+MENU BUTTON
+========================= */
 
 .menu-btn-dark{
 font-size:24px;
 cursor:pointer;
+}
+
+/* cor controlada pelo tema */
+body[data-theme="light"] .menu-btn-dark{
 color:#000;
 }
 
-/* MENU */
+body[data-theme="dark"] .menu-btn-dark{
+color:#fff;
+}
+
+/* =========================
+MENU LATERAL
+========================= */
 
 .menu-overlay{
 position:fixed;
@@ -87,7 +133,6 @@ top:0;
 left:-260px;
 width:260px;
 height:100%;
-background:#ffffff;
 transition:left .35s cubic-bezier(.4,0,.2,1);
 z-index:100;
 padding:26px 20px;
@@ -118,22 +163,21 @@ transition:.2s;
 }
 
 .menu-item:hover{
-background:#fff3ef;
 transform:translateX(4px);
 }
 
-/* DARK MODE MENU */
-
-body[data-theme="dark"] .menu{
-background:#1a1a1a;
-color:#fff;
+/* hover separado por tema */
+body[data-theme="light"] .menu-item:hover{
+background:#fff3ef;
 }
 
 body[data-theme="dark"] .menu-item:hover{
 background:#2a2a2a;
 }
 
-/* CONTAINER PRINCIPAL */
+/* =========================
+CONTAINER PRINCIPAL
+========================= */
 
 .center{
 width:90%;
@@ -144,7 +188,9 @@ flex-direction:column;
 gap:16px;
 }
 
-/* TITULO */
+/* =========================
+TÍTULO
+========================= */
 
 .titulo-central{
 text-align:center;
@@ -157,7 +203,9 @@ margin-top:10px;
 color:#F25522;
 }
 
-/* BOTÃO */
+/* =========================
+BOTÃO ÁREA
+========================= */
 
 .bottom{
 width:90%;
@@ -165,23 +213,14 @@ max-width:420px;
 margin:20px auto 40px auto;
 }
 
-/* DARK MODE */
+/* =========================
+RESPONSIVO (MELHORIA)
+========================= */
 
-body[data-theme="dark"]{
-background:#0f0f0f;
-color:#fff;
+@media (min-width:480px){
+
+body{
+align-items:center;
 }
 
-body[data-theme="dark"] .top-white{
-background:#1c1c1c;
-color:#fff;
-border-bottom:2px solid rgba(242,85,34,0.25);
-}
-
-body[data-theme="dark"] .logo-text-dark{
-color:#fff;
-}
-
-body[data-theme="dark"] .menu-btn-dark{
-color:#fff;
 }
