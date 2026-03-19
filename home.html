@@ -16,10 +16,8 @@
 ========================= */
 
 body{
-  background: linear-gradient(180deg, #fff7f0 0%, #ffe3cc 100%);
-  position:relative;
-  color:#1a1a1a;
-  overflow-x:hidden;
+  padding-top:80px; /* espaço pro header fixo */
+  padding-bottom:100px; /* espaço pro botão */
 }
 
 /* FUNDO COM MOVIMENTO SUAVE */
@@ -61,32 +59,45 @@ body::before{
    SLIDER
 ========================= */
 
-.indicadores{
+.slider{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+
   margin-top:10px;
-  margin-bottom:20px;
 }
 
-.slide-content h2{
-  color:#1a1a1a;
+.slides{
+  display:flex;
+  width:100%;
+  transition:transform .4s ease;
 }
 
-.slide-content .destaque{
-  color:#FC7900;
+.slide{
+  min-width:100%;
+  flex-shrink:0;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  padding:20px;
 }
 
-.slide-content p{
-  color:#555;
+   .indicadores{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin:10px 0 20px;
 }
 
-.slide-btn{
-  background:#FC7900;
-  color:#fff;
-  border:none;
-  box-shadow:0 6px 18px rgba(252,121,0,.3);
-  border-radius:30px;
-  padding:12px 20px;
+   .center{
+  width:100%;
+  max-width:500px;
+  margin:0 auto;
 }
-
+   
 /* =========================
    TÍTULO (BLOCO)
 ========================= */
@@ -115,6 +126,7 @@ body::before{
 ========================= */
 
 .card{
+  width:100%;
   background:#0c0c0c !important;
   border-radius:18px;
   margin:0 20px;
@@ -158,8 +170,13 @@ body::before{
   bottom:20px;
   left:0;
   width:100%;
+  max-width:500px;
+  margin:auto;
+  right:0;
+
   padding:0 20px;
-  z-index:6;
+
+  z-index:1000;
 }
 
 #confirmar{
@@ -180,6 +197,31 @@ body::before{
   box-shadow:none;
 }
 
+   .menu{
+  position:fixed;
+  top:0;
+  right:-260px;
+  width:260px;
+  height:100%;
+
+  background:#fff;
+
+  z-index:2000;
+  transition:.3s;
+}
+
+.menu.ativo{
+  right:0;
+}
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  z-index:1500;
+}
+   
 /* =========================
    RADAR (FUNDO SUAVE)
 ========================= */
@@ -258,7 +300,26 @@ body::before{
 *{
   transition:all .2s ease;
 }
-  
+
+   .top-white{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:70px;
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 16px;
+
+  background:rgba(255,255,255,.85) !important;
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid rgba(0,0,0,.05);
+}
 </style>
 </head>
 
