@@ -8,10 +8,161 @@
 
 <script src="core/datamanager.js"></script>
 
-<link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
+<style>
 
+/* FUNDO PRINCIPAL (CLARO COM VIDA) */
+
+body{
+  background: linear-gradient(180deg, #fff7f0 0%, #ffe3cc 100%);
+  position:relative;
+  color:#1a1a1a;
+}
+
+/* FUNDO DINÂMICO SUAVE */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at center, rgba(252,121,0,.15), transparent 70%);
+  animation:rotateBg 25s linear infinite;
+  z-index:0;
+  pointer-events:none;
+}
+
+@keyframes rotateBg{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* RADAR SUPER SUTIL */
+
+.radar-bg{
+  opacity:.15;
+}
+
+/* HEADER */
+
+.top-white{
+  background:rgba(255,255,255,.9) !important;
+  backdrop-filter:blur(10px);
+}
+
+/* SLIDER TEXTO */
+
+.slide-content h2{
+  color:#1a1a1a;
+}
+
+.slide-content .destaque{
+  color:#FC7900;
+}
+
+.slide-content p{
+  color:#555;
+}
+
+/* BOTÕES */
+
+.slide-btn{
+  background:#FC7900;
+  color:#fff;
+  box-shadow:0 6px 18px rgba(252,121,0,.3);
+}
+
+/* CARD PRINCIPAL (AQUI É O PULO DO GATO) */
+
+.card{
+  background: #0c0c0c !important;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  border:1px solid rgba(252,121,0,.2);
+}
+
+/* CAMPOS */
+
+.campo{
+  background:transparent;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  color:#fff;
+}
+
+/* TEXTOS DENTRO DO CARD */
+
+.campo-left div{
+  color:#fff;
+}
+
+/* SELECT */
+
+.rf-select{
+  background:#1a1a1a;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+/* TITULO CENTRAL */
+
+.titulo-central{
+  color:#1a1a1a;
+}
+
+.titulo-central span{
+  color:#FC7900;
+}
+
+/* BOTÃO PRINCIPAL */
+
+#confirmar{
+  background:linear-gradient(90deg, #FC7900, #e56700);
+  color:#fff;
+  box-shadow:0 10px 25px rgba(252,121,0,.35);
+}
+
+/* BOTÃO DESABILITADO */
+
+#confirmar:disabled{
+  background:#ccc;
+  box-shadow:none;
+}
+
+/* INDICADORES */
+
+.dotSlide.ativo{
+  background:#FC7900 !important;
+}
+
+/* MENU */
+
+.menu{
+  background:#fff;
+}
+
+.menu-item{
+  color:#333;
+}
+
+/* MODAIS */
+
+.modal-content,
+.rf-modal-content{
+  background:#fff;
+  border-radius:14px;
+}
+
+/* INPUT */
+
+#busca{
+  background:#f2f2f2;
+}
+
+/* TRANSIÇÃO SUAVE */
+
+*{
+  transition:all .2s ease;
+}
+  
+</style>
 </head>
 
 <body>
