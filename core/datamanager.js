@@ -2,27 +2,27 @@ const DataManager = {
 
   rotas: [],
 
-  arquivos: [
+  arquivos: arquivos: [
 
-    "./data/Padaria-de-Gilberto-Cruzeiro.json",
-    "./data/aguia-american-club-br-101.json",
-    "./data/bairro-baixo.json",
-    "./data/bairro-alto.json",
-    "./data/calhetas.json",
-    "./data/centro-do-cabo.json",
-    "./data/cohab.json",
-    "./data/condominio-porto-do-cabo.json",
-    "./data/dharma-ville.json",
-    "./data/enseadas.json",
-    "./data/gaibu.json",
-    "./data/longas.json",
-    "./data/itapuama.json",
-    "./data/lote-garapu2-lote-dona-amara.json",
-    "./data/setor-4.json",
-    "./data/shopping-costinha.json",
-    "./data/xareu.json"
+  "/data/Padaria-de-Gilberto-Cruzeiro.json",
+  "/data/aguia-american-club-br-101.json",
+  "/data/bairro-baixo.json",
+  "/data/bairro-alto.json",
+  "/data/calhetas.json",
+  "/data/centro-do-cabo.json",
+  "/data/cohab.json",
+  "/data/condominio-porto-do-cabo.json",
+  "/data/dharma-ville.json",
+  "/data/enseadas.json",
+  "/data/gaibu.json",
+  "/data/longas.json",
+  "/data/itapuama.json",
+  "/data/lote-garapu2-lote-dona-amara.json",
+  "/data/setor-4.json",
+  "/data/shopping-costinha.json",
+  "/data/xareu.json"
 
-  ],
+],
 
   async carregar(){
 
