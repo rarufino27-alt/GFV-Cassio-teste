@@ -59,20 +59,28 @@ Para onde <span>vamos</span> hoje?
 </div>
 </div>
 
+<div class="campo" id="paradaBtn" style="display:none;">
+<div class="campo-left">
+<div class="dot parada"></div>
+<div id="paradaTexto">Selecionar parada</div>
+</div>
+</div>
+
 <div class="campo" id="destinoBtn">
 <div class="campo-left">
 <div class="dot destino"></div>
 <div id="destinoTexto">Selecionar destino</div>
 </div>
+<div class="plus" id="addParada">＋</div>
 </div>
 
-<div class="campo" id="tipoCarroBtn">
+<div class="campo">
 <div class="campo-left">
 <div class="dot" style="background:#3b82f6;"></div>
 <div>Tipo de veículo</div>
 </div>
 
-<div class="rf-select">
+<div class="rf-select" id="tipoCarroBtn">
 <span id="tipoCarroTexto">4 lugares</span>
 </div>
 
@@ -83,13 +91,13 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="bottom">
-<button id="confirmar">Confirmar rota</button>
+<button id="confirmar" disabled>Confirmar rota</button>
 </div>
 
 <!-- MODAL LISTA -->
 <div class="modal" id="modal">
 <div class="modal-content">
-<input type="text" id="busca" placeholder="Buscar...">
+<input type="text" id="busca" placeholder="Buscar local...">
 <div class="lista" id="lista"></div>
 </div>
 </div>
@@ -129,14 +137,11 @@ border:1px solid rgba(255,255,255,.1);
 async function init(){
 const loading = document.getElementById("loading");
 loading.style.display="flex";
-
 try{
 await DataManager.carregar();
 }catch(e){
-alert("Erro ao carregar rotas");
-console.error(e);
+alert("Erro ao carregar rotas.");
 }
-
 loading.style.display="none";
 }
 init();
@@ -154,87 +159,152 @@ function irPara(p){
 window.location.href=p;
 }
 
+/* SISTEMA COMPLETO (RF TRAZIDO PRO GFV) */
+
+let origem=null,parada=null,destino=null,modo=null;
+
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const confirmarBtn=document.getElementById("confirmar");
+
+function abrirModal(tipo){
+if(tipo!=="origem"&&!origem){
+alert("Selecione a origem primeiro.");
+return;
+}
+
+modo=tipo;
+busca.value="";
+modal.style.display="flex";
+
+let dados=[];
+
+if(tipo==="origem"){
+dados=DataManager.listarOrigens();
+}
+
+if(tipo==="parada"){
+dados=DataManager.listarDestinos(origem);
+}
+
+if(tipo==="destino"){
+dados=parada
+? DataManager.listarDestinos(parada)
+: DataManager.listarDestinos(origem);
+}
+
+renderLista(dados);
+}
+
+function renderLista(arr){
+lista.innerHTML="";
+arr.forEach(item=>{
+const div=document.createElement("div");
+div.innerText=item;
+div.onclick=()=>{
+selecionar(item);
+modal.style.display="none";
+};
+lista.appendChild(div);
+});
+}
+
+busca.addEventListener("input",()=>{
+const termo=busca.value.toLowerCase();
+Array.from(lista.children).forEach(div=>{
+div.style.display=div.innerText.toLowerCase().includes(termo)?"block":"none";
+});
+});
+
+function selecionar(valor){
+
+if(modo==="origem"){
+origem=valor;
+parada=null;
+destino=null;
+
+origemTexto.innerText=valor;
+paradaTexto.innerText="Selecionar parada";
+destinoTexto.innerText="Selecionar destino";
+
+paradaBtn.style.display="none";
+}
+
+if(modo==="parada"){
+parada=valor;
+destino=null;
+paradaTexto.innerText=valor;
+}
+
+if(modo==="destino"){
+destino=valor;
+destinoTexto.innerText=valor;
+}
+
+confirmarBtn.disabled=!(origem&&destino);
+}
+
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=e=>{
+e.stopPropagation();
+if(!origem){
+alert("Selecione a origem primeiro.");
+return;
+}
+paradaBtn.style.display="flex";
+};
+
+/* TIPO VEÍCULO */
+
+const modalTipo=document.getElementById("modalTipoCarro");
+
+tipoCarroBtn.onclick=()=>modalTipo.style.display="flex";
+
+modalTipo.onclick=e=>{
+if(e.target===modalTipo) modalTipo.style.display="none";
+};
+
+document.querySelectorAll(".rf-option").forEach(op=>{
+op.onclick=()=>{
+tipoCarro.value=op.dataset.value;
+tipoCarroTexto.innerText=op.innerText;
+modalTipo.style.display="none";
+};
+});
+
+/* CONFIRMAR */
+
+confirmarBtn.onclick=()=>{
+
+let valorTotal=0;
+
+if(!parada){
+valorTotal=DataManager.buscarValor(origem,destino)||0;
+}else{
+valorTotal=
+(DataManager.buscarValor(origem,parada)||0)
++
+(DataManager.buscarValor(parada,destino)||0);
+}
+
+const tipo=parseFloat(tipoCarro.value);
+
+localStorage.setItem("gfv_corrida_temp",JSON.stringify({
+origem,parada,destino,valor:valorTotal,categoria:tipo
+}));
+
+window.location.href="resumo.html";
+};
+
 /* TEMA */
 (function(){
 const temaSalvo=localStorage.getItem("rf_theme")||"dark";
 document.body.setAttribute("data-theme",temaSalvo);
 })();
-
-/* =========================
-SELEÇÃO ORIGEM / DESTINO
-========================= */
-
-let origem = null;
-let destino = null;
-let tipoSelecionando = null;
-
-const modal = document.getElementById("modal");
-const lista = document.getElementById("lista");
-
-document.getElementById("origemBtn").onclick = ()=>{
-tipoSelecionando = "origem";
-abrirLista(DataManager.listarOrigens());
-};
-
-document.getElementById("destinoBtn").onclick = ()=>{
-if(!origem){
-alert("Selecione a origem primeiro");
-return;
-}
-tipoSelecionando = "destino";
-abrirLista(DataManager.listarDestinos(origem));
-};
-
-function abrirLista(itens){
-lista.innerHTML = "";
-itens.forEach(item=>{
-const div = document.createElement("div");
-div.innerText = item;
-div.style.padding="12px";
-div.onclick = ()=>selecionar(item);
-lista.appendChild(div);
-});
-modal.style.display="flex";
-}
-
-function selecionar(valor){
-
-if(tipoSelecionando === "origem"){
-origem = valor;
-document.getElementById("origemTexto").innerText = valor;
-}
-
-if(tipoSelecionando === "destino"){
-destino = valor;
-document.getElementById("destinoTexto").innerText = valor;
-}
-
-modal.style.display="none";
-}
-
-/* =========================
-TIPO DE VEÍCULO (CORRIGIDO)
-========================= */
-
-const modalTipo = document.getElementById("modalTipoCarro");
-
-document.getElementById("tipoCarroBtn").onclick = ()=>{
-modalTipo.style.display = "flex";
-};
-
-modalTipo.onclick = (e)=>{
-if(e.target === modalTipo){
-modalTipo.style.display = "none";
-}
-};
-
-document.querySelectorAll(".rf-option").forEach(op=>{
-op.onclick = ()=>{
-document.getElementById("tipoCarro").value = op.dataset.value;
-document.getElementById("tipoCarroTexto").innerText = op.innerText;
-modalTipo.style.display="none";
-};
-});
 
 </script>
 
