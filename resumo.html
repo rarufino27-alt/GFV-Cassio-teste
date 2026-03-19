@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF – Resumo</title>
+<title>GFV – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="theme/theme.css">
@@ -36,8 +36,8 @@
 <div class="top-white">
 
 <div class="logo-area">
-<img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark">RF MOTORISTA</span>
+<img src="logo.png" class="logo-img">
+<span class="logo-text-dark">GFV MOTORISTA</span>
 </div>
 
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
@@ -107,7 +107,7 @@
 <div class="footer-inner">
 <div class="valor" id="valorFinal">R$ 0,00</div>
 <div class="cta-area">
-<button onclick="solicitar()">Enviar recibo via Whatsapp</button>
+<button onclick="solicitar()">Enviar recibo via WhatsApp</button>
 </div>
 </div>
 </div>
@@ -115,11 +115,8 @@
 <script>
 
 (function(){
-
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
 document.body.setAttribute("data-theme", temaSalvo);
-
 })();
 
 function abrirMenu(){
@@ -283,67 +280,9 @@ e.addEventListener("change",calcular);
 function solicitar(){
 
 const agora = new Date();
-
 const data = agora.toLocaleDateString("pt-BR");
 const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-
 const total = parseFloat(localStorage.getItem("rf_total_final")) || 0;
-
-const pagamento = document.getElementById("pagamento").value;
-
-let categoriaTexto = "Driver 4 Lugares";
-
-if(categoria > 1){
-categoriaTexto = "Driver 6 Lugares";
-}
-
-let base = parseFloat(valor) || 0;
-let taxas = 0;
-
-const saidaPraia = parseFloat(document.getElementById("saidaPraia").value)||0;
-taxas += saidaPraia;
-
-const feira = parseFloat(document.getElementById("feira").value)||0;
-taxas += feira;
-
-const animal = parseFloat(document.getElementById("animal").value)||0;
-taxas += animal;
-
-const espera = parseFloat(document.getElementById("espera").value)||0;
-
-if(espera > 5){
-taxas += 3 + ((espera-5)*0.60);
-}
-
-const noturno = adicionalNoturno(base);
-base += noturno;
-
-let subtotal = base + taxas;
-
-if(categoria > 1){
-subtotal = subtotal * categoria;
-}
-
-let taxaCartao = 0;
-let blocoPagamento = "";
-
-if(pagamento === "debito"){
-taxaCartao = total - subtotal;
-
-blocoPagamento = `
-Acréscimo cartão: R$ ${taxaCartao.toFixed(2)}
-Forma de pagamento: Débito
-`;
-}
-
-if(pagamento === "credito"){
-taxaCartao = total - subtotal;
-
-blocoPagamento = `
-Acréscimo cartão: R$ ${taxaCartao.toFixed(2)}
-Forma de pagamento: Crédito
-`;
-}
 
 let itinerario = `📍 Origem:
 ${origem}
@@ -361,37 +300,17 @@ itinerario += `🏁 Destino:
 ${destino}`;
 
 const msg =
-`*RECIBO DE VIAGEM RF*
+`*RECIBO DE VIAGEM GFV*
 ${data}
 ${hora}
 
-_____________________________
-*Detalhamento da viagem*
-
-Categoria: ${categoriaTexto}
-
-${detalhamentoRecibo}
-
-Subtotal: R$ ${subtotal.toFixed(2)}
-
-${blocoPagamento}
-
-Total Geral: R$ ${total.toFixed(2)}
-
-_____________________________
-*ITINERÁRIO*
-
 ${itinerario}
 
-_____________________________
-💰 *Total: R$ ${total.toFixed(2)}*
+💰 Total: R$ ${total.toFixed(2)}
 
-_GRUPO RF_
-58.615.336/0001-49`;
+_GFv Motorista_`;
 
-const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-
-window.location.href = url;
+window.location.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
 }
 
