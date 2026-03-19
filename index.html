@@ -2,35 +2,241 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF Motorista</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="core/datamanager.js"></script>
+<title>RF Passageiro</title>
+
 <style>
-body{
-  background:#0A0F1C;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  color:#D6B85F;
+
+:root{
+  --rf-gold:#D6B85F;
+  --rf-gold-strong:#F4D97A;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
+
+html,body{
+  height:100%;
+}
+
+body{
+  position:relative;
+  overflow:hidden;
+  background: radial-gradient(circle at top,#1A2133 0%,#080A12 70%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  animation:fadeIn .4s ease;
+}
+
+/* FUNDO ROTATIVO */
+
+body::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:160%;
+  height:160%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(214,184,95,.15), transparent 70%);
+  animation:rotateBg 18s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes rotateBg{
+  from{transform:translate(-50%,-50%) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* CONTAINER */
+
+.container{
+  position:relative;
+  text-align:center;
+  z-index:2;
+}
+
+/* RADAR */
+
+.radar{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  border:2px solid rgba(214,184,95,.4);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.radar::before,
+.radar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid rgba(214,184,95,.3);
+  animation:pulse 4s infinite;
+}
+
+.radar::after{
+  animation-delay:2s;
+}
+
+@keyframes pulse{
+  0%{
+    transform:scale(.7);
+    opacity:.8;
+  }
+  100%{
+    transform:scale(1.6);
+    opacity:0;
+  }
+}
+
+/* GLOW */
+
+.glow{
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--rf-gold),transparent 70%);
+  filter:blur(60px);
+  opacity:.4;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  animation:glowPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes glowPulse{
+  0%,100%{opacity:.3;}
+  50%{opacity:.6;}
+}
+
+/* LOGO */
+
+.logo{
+  width:160px;
+  max-width:70%;
+  position:relative;
+  z-index:3;
+  opacity:0;
+  transform:scale(.85);
+  animation:logoFast .5s ease forwards, logoFloat 4s ease-in-out infinite 1s;
+}
+
+@keyframes logoFast{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes logoFloat{
+  0%{transform:scale(.95);}
+  50%{transform:scale(1);}
+  100%{transform:scale(.95);}
+}
+
+/* TEXTO */
+
+.tagline{
+  margin-top:25px;
+  font-size:14px;
+  letter-spacing:.5px;
+  opacity:0;
+  animation:textFade 1s ease forwards 1.6s;
+}
+
+@keyframes textFade{
+  to{opacity:.9;}
+}
+
+/* PROGRESS */
+
+.progress{
+  margin-top:30px;
+  width:200px;
+  height:4px;
+  background:rgba(255,255,255,.1);
+  border-radius:6px;
+  overflow:hidden;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--rf-gold),var(--rf-gold-strong));
+  animation:load 4s ease forwards;
+}
+
+@keyframes load{
+  to{width:100%;}
+}
+
+/* FADE OUT */
+
+.fade-out{
+  animation:fadeOut .5s ease forwards;
+}
+
+@keyframes fadeOut{
+  to{
+    opacity:0;
+    transform:scale(.98);
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
 </style>
 </head>
+
 <body>
 
-<div>Iniciando RF...</div>
+<div class="container">
+
+  <div class="radar"></div>
+  <div class="glow"></div>
+
+  <img src="icons/logo-1024.png" class="logo" alt="RF Passageiro">
+
+  <div class="tagline">
+    Tabela de Preços RF
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", ()=>{
 
-  if(DataManager.isOnline()){
-    window.location.href="driver-home.html";
-  }else{
-    window.location.href="offline.html";
-  }
+/* Splash otimizado (4.5s total) */
 
-});
+setTimeout(()=>{
+  document.body.classList.add("fade-out");
+},4000);
+
+setTimeout(()=>{
+  window.location.href="home.html";
+},4500);
+
 </script>
 
 </body>
