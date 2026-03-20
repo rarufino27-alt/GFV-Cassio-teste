@@ -153,11 +153,13 @@ body {
 .slide-box {
   width: 100%;
   min-height: 140px;
-  background: rgba(255,255,255,0.04);
+  background: linear-gradient(135deg, #111827, #1f2937);
   backdrop-filter: blur(10px);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 20px;
   transition: transform 0.3s ease; 
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
 body[data-theme="light"] .slide-box h2 { color:#111; }
@@ -168,7 +170,8 @@ body[data-theme="dark"] .slide-box p { color:#ccc; }
 
 /* TEXTO */
 .slide-box h2 {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .slide-box p {
@@ -228,7 +231,7 @@ body[data-theme="dark"] .slide-box p { color:#ccc; }
 .titulo {
   text-align: center;
 
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
 
   margin-bottom: 15px;
