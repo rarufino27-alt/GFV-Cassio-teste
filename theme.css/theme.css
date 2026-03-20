@@ -42,7 +42,7 @@ body {
    LIGHT MODE
 ========================= */
 body[data-theme="light"] {
-  background: linear-gradient(180deg, #f8fafc, #e5e7eb);
+  background: #f3f4f6;
   --card: #ffffff;
 
   --text: #111111;
