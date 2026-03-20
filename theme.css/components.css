@@ -1,133 +1,263 @@
-/* CARD */
+/* =========================
+   VARIÁVEIS (PADRÃO GFV)
+========================= */
+:root {
+  --primary: #ff5a1f;
+  --primary-dark: #cc4718;
 
-.card{
-  background:rgba(255,255,255,0.04);
-  backdrop-filter:blur(16px);
-  border-radius:20px;
-  padding:20px;
-  border:1px solid rgba(255,215,0,0.1);
-  box-shadow:0 10px 30px rgba(0,0,0,.6);
+  --background: #0f172a;
+  --card: rgba(255,255,255,0.04);
+
+  --text: #ffffff;
+  --text-secondary: #94a3b8;
+
+  --border: rgba(255,255,255,0.08);
+
+  --accent: #facc15;
+  --accent-dark: #f59e0b;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #facc15;
 }
 
-/* CAMPOS */
+/* =========================
+   CARD
+========================= */
+.card {
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 20px;
 
-.campo{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255, 90, 31, 0.15);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.02);
 }
 
-.campo-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+/* =========================
+   CAMPOS
+========================= */
+.campo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--border);
+
+  transition: all 0.2s ease;
 }
 
-.dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
+.campo:last-child {
+  border-bottom: none;
 }
 
-.origem{background:#22c55e;}
-.destino{background:#ef4444;}
-.parada{background:#facc15;}
-
-.plus{
-  font-size:20px;
-  color:#facc15;
+.campo:active {
+  transform: scale(0.98);
+  opacity: 0.8;
 }
 
-/* SELECT */
+.campo-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-.rf-select{
-  background:#111;
-  border-radius:10px;
-  padding:8px 12px;
-  border:1px solid rgba(255,255,255,.1);
+  color: var(--text);
 }
 
-/* BOTÃO */
-
-button{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(135deg,#facc15,#f59e0b);
-  font-weight:800;
-  color:#000;
+/* =========================
+   DOTS (STATUS)
+========================= */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
-/* MODAL LISTA */
+.origem { background: var(--success); }
+.destino { background: var(--danger); }
+.parada { background: var(--warning); }
 
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:200;
+/* =========================
+   BOTÃO +
+========================= */
+.plus {
+  font-size: 20px;
+  color: var(--accent);
+  font-weight: bold;
 }
 
-.modal-content{
-  background:#1c1c1c;
-  border-radius:18px;
-  padding:20px;
-  width:90%;
-  max-width:420px;
+/* =========================
+   SELECT CUSTOM
+========================= */
+.rf-select {
+  background: #111;
+  border-radius: 10px;
+  padding: 8px 12px;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  color: var(--text);
+
+  transition: 0.2s;
 }
 
-/* LISTA */
-
-.lista{
-  max-height:300px;
-  overflow:auto;
+.rf-select:active {
+  transform: scale(0.95);
 }
 
-.lista div{
-  padding:12px;
-  border-radius:10px;
-  cursor:pointer;
+/* =========================
+   BOTÕES PRINCIPAIS
+========================= */
+button {
+  width: 100%;
+  padding: 16px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+
+  font-weight: 800;
+  font-size: 15px;
+
+  color: #000;
+
+  transition: all 0.2s ease;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
-.lista div:hover{
-  background:#2a2a2a;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-/* MODAL VEÍCULO */
-
-.rf-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:300;
+button:active {
+  transform: scale(0.97);
 }
 
-.rf-modal-content{
-  background:#1c1c1c;
-  border-radius:16px;
-  width:90%;
-  max-width:320px;
-  padding:10px;
+/* =========================
+   MODAL LISTA
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.85);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 200;
 }
 
-.rf-option{
-  padding:14px;
-  text-align:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
+.modal-content {
+  background: #1c1c1c;
+
+  border-radius: 18px;
+  padding: 20px;
+
+  width: 90%;
+  max-width: 420px;
+
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.rf-option:last-child{
-  border:none;
+/* INPUT BUSCA */
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 10px;
+  border: none;
+
+  margin-bottom: 10px;
+
+  background: #111;
+  color: var(--text);
 }
 
-.rf-option:hover{
-  background:#2a2a2a;
+/* =========================
+   LISTA
+========================= */
+.lista {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.lista div {
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.lista div:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* =========================
+   MODAL VEÍCULO
+========================= */
+.rf-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.7);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 300;
+}
+
+.rf-modal-content {
+  background: #1c1c1c;
+
+  border-radius: 16px;
+  width: 90%;
+  max-width: 320px;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.rf-option {
+  padding: 14px;
+  text-align: center;
+
+  border-bottom: 1px solid var(--border);
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.rf-option:last-child {
+  border: none;
+}
+
+.rf-option:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* =========================
+   SCROLL CUSTOM
+========================= */
+.lista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lista::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
 }
