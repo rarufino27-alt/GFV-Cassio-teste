@@ -303,9 +303,12 @@ button:active {
 ========================= */
 
 .card-title {
+  font-size: 14px;
   font-weight: 700;
+
   margin-bottom: 10px;
-  color: var(--primary);
+
+  color: #facc15;
 }
 
 /* OPÇÕES */
