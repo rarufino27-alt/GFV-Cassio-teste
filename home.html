@@ -335,6 +335,7 @@ modalTipoCarro.onclick = e=>{
 
 /* CONFIRMAR */
 confirmarBtn.onclick = ()=>{
+
   const valor = DataManager.buscarValor(origem, destino) || 0;
 
   localStorage.setItem("gfv_corrida", JSON.stringify({
@@ -344,8 +345,55 @@ confirmarBtn.onclick = ()=>{
     categoria: parseFloat(tipoCarro.value)
   }));
 
-  window.location.href = "resumo.html";
+  // feedback premium
+  if (navigator.vibrate) {
+    navigator.vibrate(20);
+  }
+
+  confirmarBtn.innerText = "Calculando...";
+  confirmarBtn.style.opacity = "0.8";
+
+  setTimeout(()=>{
+    window.location.href = "resumo.html";
+  }, 300);
 };
+
+/* ATIVAR BOTÃO */
+function atualizarBotao(){
+
+  const ativo = origem && destino;
+
+  confirmarBtn.disabled = !ativo;
+
+  if(ativo){
+    confirmarBtn.classList.add("ativo");
+  }else{
+    confirmarBtn.classList.remove("ativo");
+  }
+}
+
+/* ATUALIZA AO SELECIONAR */
+function selecionar(valor){
+
+  if(modo === "origem"){
+    origem = valor;
+    origemTexto.innerText = valor;
+
+    destino = null;
+    destinoTexto.innerText = "Selecionar destino";
+  }
+
+  if(modo === "destino"){
+    destino = valor;
+    destinoTexto.innerText = valor;
+  }
+
+  atualizarBotao();
+}
+
+/* EVENTOS */
+origemBtn.onclick = ()=>abrirModal("origem");
+destinoBtn.onclick = ()=>abrirModal("destino");
 
 /* TEMA */
 (function(){
