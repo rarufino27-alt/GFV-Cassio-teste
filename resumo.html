@@ -111,6 +111,35 @@ button:active::after {
 button:active {
   transform: scale(0.96);
 }
+
+  .btn-whatsapp {
+  width: 100%;
+  padding: 18px;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  border-radius: 30px;
+
+  background: linear-gradient(135deg, #ff5a1f, #ff7a3a);
+  color: #fff;
+
+  box-shadow: 0 10px 25px rgba(255,90,31,0.4);
+
+  animation: pulseBtn 1.5s infinite;
+}
+
+/* ANIMAÇÃO */
+@keyframes pulseBtn {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.btn-whatsapp:active {
+  transform: scale(0.96);
+}
+  
 </style>
 </head>
 
@@ -209,10 +238,9 @@ button:active {
 
 <!-- FOOTER -->
 <div class="bottom">
-  <div style="text-align:center; margin-bottom:10px;">
-    <strong id="valorFinal">R$ 0,00</strong>
-  </div>
-  <button onclick="solicitar()">Enviar via WhatsApp</button>
+  <button class="btn-whatsapp" onclick="solicitar()">
+    Enviar recibo via WhatsApp
+  </button>
 </div>
 
 <script>
@@ -267,66 +295,76 @@ function adicionalNoturno(base){
 /* CALCULO */
 function calcular(){
 
-let base = parseFloat(valor) || 0;
-let total = base;
+  let base = parseFloat(valor) || 0;
+  let total = base;
 
-let html = "";
+  let html = "";
 
-const feira = parseFloat(feiraEl.value) || 0;
-const animal = parseFloat(animalEl.value) || 0;
-const praia = parseFloat(saidaPraiaEl.value) || 0;
-const espera = parseFloat(esperaEl.value) || 0;
+  const feira = parseFloat(feiraEl.value) || 0;
+  const animal = parseFloat(animalEl.value) || 0;
+  const praia = parseFloat(saidaPraiaEl.value) || 0;
+  const espera = parseFloat(esperaEl.value) || 0;
+  const pagamento = pagamentoEl.value;
 
-const noturno = adicionalNoturno(base);
+  const noturno = adicionalNoturno(base);
 
-// FUNÇÃO DE LINHA PADRÃO (COM DESTAQUE)
-function linha(nome, valor){
-return `       <div class="linha ativa">         <span>${nome}</span>         <span>R$ ${valor.toFixed(2)}</span>       </div>
-    `;
-}
+  html += `<div class="linha"><span>Valor base</span><span>R$ ${base.toFixed(2)}</span></div>`;
 
-// BASE
-html += `     <div class="linha">       <span>Valor base</span>       <span>R$ ${base.toFixed(2)}</span>     </div>
+  if(noturno > 0){
+    html += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
+    total += noturno;
+  }
+
+  if(feira > 0){
+    html += `<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
+    total += feira;
+  }
+
+  if(animal > 0){
+    html += `<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
+    total += animal;
+  }
+
+  if(praia > 0){
+    html += `<div class="linha"><span>Saída Praia</span><span>R$ ${praia.toFixed(2)}</span></div>`;
+    total += praia;
+  }
+
+  if(espera > 5){
+    let val = 3 + ((espera - 5) * 0.6);
+    html += `<div class="linha"><span>Espera</span><span>R$ ${val.toFixed(2)}</span></div>`;
+    total += val;
+  }
+
+  let subtotal = total;
+  let totalFinal = subtotal;
+  let taxaCartao = 0;
+
+  // 💳 DÉBITO
+  if(pagamento === "debito"){
+    totalFinal = subtotal / 0.98;
+    taxaCartao = totalFinal - subtotal;
+
+    html += `<div class="linha"><span>Taxa Débito</span><span>R$ ${taxaCartao.toFixed(2)}</span></div>`;
+  }
+
+  // 💳 CRÉDITO
+  if(pagamento === "credito"){
+    totalFinal = subtotal / 0.95;
+    taxaCartao = totalFinal - subtotal;
+
+    html += `<div class="linha"><span>Taxa Crédito</span><span>R$ ${taxaCartao.toFixed(2)}</span></div>`;
+  }
+
+  html += `
+    <div class="total-box">
+      Total: R$ ${totalFinal.toFixed(2)}
+    </div>
   `;
 
-// NOTURNO
-if(noturno > 0){
-html += linha("Adicional Noturno", noturno);
-total += noturno;
+  document.getElementById("detalhe").innerHTML = html;
 }
-
-// FEIRA
-if(feira > 0){
-html += linha("Feira", feira);
-total += feira;
-}
-
-// ANIMAL
-if(animal > 0){
-html += linha("Animal", animal);
-total += animal;
-}
-
-// PRAIA
-if(praia > 0){
-html += linha("Saída Praia", praia);
-total += praia;
-}
-
-// ESPERA
-if(espera > 5){
-let val = 3 + ((espera - 5) * 0.6);
-html += linha("Espera", val);
-total += val;
-}
-
-// TOTAL
-html += `     <div class="total-box">
-      Total: R$ ${total.toFixed(2)}     </div>
-  `;
-
-document.getElementById("detalhe").innerHTML = html;
-
+  
 // ANIMAÇÃO DO VALOR
 animarValor(total);
 
@@ -337,6 +375,7 @@ navigator.vibrate(10);
 }
 
 /* ELEMENTOS */
+const pagamentoEl = document.getElementById("pagamento");  
 const feiraEl = document.getElementById("feira");
 const animalEl = document.getElementById("animal");
 const saidaPraiaEl = document.getElementById("saidaPraia");
