@@ -69,6 +69,23 @@
   color: var(--text);
 }
 
+.campo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.campo-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Garante espaço correto */
+.campo span {
+  font-size: 14px;
+}
+
 /* =========================
    DOTS (STATUS)
 ========================= */
@@ -95,15 +112,19 @@
    SELECT CUSTOM
 ========================= */
 .rf-select {
+  min-width: 90px;
+  text-align: center;
+
   background: #111;
   border-radius: 10px;
   padding: 8px 12px;
 
   border: 1px solid rgba(255,255,255,0.1);
-
   color: var(--text);
 
-  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rf-select:active {
