@@ -1,216 +1,288 @@
-<!DOCTYPE html><html lang="pt-BR">
-<head><meta charset="UTF-8">
-<title>RF – Viagem</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="core/datamanager.js"></script><link rel="stylesheet" href="theme.css/theme.css">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>GFV Viagens</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- CORE -->
+<script src="core/datamanager.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="theme.css/theme.css">
 <link rel="stylesheet" href="theme.css/layout.css">
-<link rel="stylesheet" href="theme.css/components.css"></head><body><div id="loading" class="loading">
-<div class="loader"></div>
-<span>Carregando rotas...</span>
-</div><div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div><div class="menu" id="menu">
-<h3>Menu</h3><div class="menu-item" onclick="irPara('termos.html')">
-📜 Regras do Grupo RF
-</div><div class="menu-item" onclick="irPara('configuracoes.html')">
-⚙️ Configurações
-</div></div><div class="top-white">
-<div class="logo-area">
-<img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark">RF MOTORISTA</span>
+<link rel="stylesheet" href="theme.css/components.css">
+
+</head>
+<body data-theme="dark">
+
+<!-- LOADING -->
+<div id="loading" class="loading">
+  <div class="loader"></div>
+  <span>Carregando rotas...</span>
 </div>
-<div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-</div><!-- SLIDER --><div class="slider">
-<div class="slides" id="slides"><div class="slide">
-<div class="slide-box">
-<h2>Tabela <span class="destaque">Oficial</span> RF</h2>
-<p>Preço fixo e justo</p>
-<button class="slide-btn" data-acao="origem">Começar</button>
+
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>Menu</h3>
+  <div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo</div>
+  <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
 </div>
-</div><div class="slide">
-<div class="slide-box">
-<h2>Ganhos <span class="destaque">semanais</span></h2>
-<p>Veja bônus</p>
-<button class="slide-btn" data-acao="bonus">Ver regras</button>
+
+<!-- TOPO -->
+<div class="top-bar">
+  <div class="logo-area">
+    <img src="icons/icon-512.png" class="logo-img">
+    <span class="logo-text">GFV VIAGENS</span>
+  </div>
+  <div class="menu-btn" onclick="abrirMenu()">☰</div>
 </div>
-</div><div class="slide">
-<div class="slide-box">
-<h2>Suporte rápido</h2>
-<p>Fale com a equipe</p>
-<button class="slide-btn" data-acao="whatsapp">Falar</button>
+
+<!-- SLIDER -->
+<div class="slider">
+  <div class="slides" id="slides">
+
+    <div class="slide">
+      <div class="slide-box">
+        <h2>Tabela <span class="destaque">Oficial</span></h2>
+        <p>Preço fixo e justo</p>
+        <button class="slide-btn" onclick="abrirModal('origem')">Começar</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-box">
+        <h2>Ganhos <span class="destaque">semanais</span></h2>
+        <p>Veja bônus</p>
+        <button class="slide-btn" onclick="irPara('termos.html')">Ver regras</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-box">
+        <h2>Suporte rápido</h2>
+        <p>Fale com a equipe</p>
+        <button class="slide-btn" onclick="window.open('https://wa.me/', '_blank')">Falar</button>
+      </div>
+    </div>
+
+  </div>
 </div>
-</div></div>
-</div><div class="indicadores">
-<div class="dotSlide ativo"></div>
-<div class="dotSlide"></div>
-<div class="dotSlide"></div>
-</div><div class="center"><div class="titulo-box">
-<div class="titulo-central">
-Para onde <span>vamos</span> hoje?
+
+<!-- INDICADORES -->
+<div class="indicadores">
+  <div class="dotSlide ativo"></div>
+  <div class="dotSlide"></div>
+  <div class="dotSlide"></div>
 </div>
-</div><div class="card"><div class="campo" id="origemBtn">
-<div class="campo-left">
-<div class="dot origem"></div>
-<div id="origemTexto">Selecionar origem</div>
+
+<!-- CONTEÚDO -->
+<div class="container">
+
+  <div class="titulo">
+    Para onde <span>vamos</span> hoje?
+  </div>
+
+  <div class="card">
+
+    <!-- ORIGEM -->
+    <div class="campo" id="origemBtn">
+      <div class="campo-left">
+        <div class="dot origem"></div>
+        <span id="origemTexto">Selecionar origem</span>
+      </div>
+    </div>
+
+    <!-- DESTINO -->
+    <div class="campo" id="destinoBtn">
+      <div class="campo-left">
+        <div class="dot destino"></div>
+        <span id="destinoTexto">Selecionar destino</span>
+      </div>
+    </div>
+
+    <!-- VEÍCULO -->
+    <div class="campo">
+      <div class="campo-left">
+        <div class="dot" style="background:#3b82f6;"></div>
+        <span>Tipo de veículo</span>
+      </div>
+      <div class="rf-select" id="tipoCarroBtn">
+        <span id="tipoCarroTexto">4 lugares</span>
+      </div>
+      <input type="hidden" id="tipoCarro" value="1">
+    </div>
+
+  </div>
 </div>
-</div><div class="campo" id="paradaBtn" style="display:none;">
-<div class="campo-left">
-<div class="dot parada"></div>
-<div id="paradaTexto">Selecionar parada</div>
+
+<!-- BOTÃO -->
+<div class="bottom">
+  <button id="confirmar" disabled>Confirmar rota</button>
 </div>
-</div><div class="campo" id="destinoBtn">
-<div class="campo-left">
-<div class="dot destino"></div>
-<div id="destinoTexto">Selecionar destino</div>
+
+<!-- MODAL LISTA -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <input type="text" id="busca" placeholder="Buscar local...">
+    <div class="lista" id="lista"></div>
+  </div>
 </div>
-<div class="plus" id="addParada">＋</div>
-</div><div class="campo">
-<div class="campo-left">
-<div class="dot" style="background:#3b82f6;"></div>
-<div>Tipo de veículo</div>
-</div><div class="rf-select" id="tipoCarroBtn">
-<span id="tipoCarroTexto">4 lugares</span>
-</div><input type="hidden" id="tipoCarro" value="1">
-</div></div>
-</div><div class="bottom">
-<button id="confirmar" disabled>Confirmar rota</button>
-</div><div class="modal" id="modal">
-<div class="modal-content">
-<input type="text" id="busca" placeholder="Buscar local...">
-<div class="lista" id="lista"></div>
+
+<!-- MODAL VEÍCULO -->
+<div class="rf-modal" id="modalTipoCarro">
+  <div class="rf-modal-content">
+    <div class="rf-option" data-value="1">4 lugares</div>
+    <div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+  </div>
 </div>
-</div><div class="rf-modal" id="modalTipoCarro">
-<div class="rf-modal-content">
-<div class="rf-option" data-value="1">4 lugares</div>
-<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
-</div>
-</div><script>
+
+<!-- SCRIPT -->
+<script>
 
 /* INIT */
 async function init(){
-const loading = document.getElementById("loading");
-loading.style.display="flex";
-try{
-await DataManager.carregar();
-}catch(e){
-alert("Erro ao carregar rotas.");
-}
-loading.style.display="none";
+  loading.style.display="flex";
+  try{
+    await DataManager.carregar();
+  }catch(e){
+    alert("Erro ao carregar rotas.");
+  }
+  loading.style.display="none";
 }
 init();
 
 /* SLIDER */
-let slideIndex=0;
-const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dotSlide");
+let slideIndex = 0;
+const slides = document.getElementById("slides");
+const dots = document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
-slideIndex++;
-if(slideIndex >= dots.length) slideIndex = 0;
-slides.style.transform=`translateX(-${slideIndex*100}%)`;
-dots.forEach(d=>d.classList.remove("ativo"));
-dots[slideIndex].classList.add("ativo");
-},4000);
+  slideIndex = (slideIndex + 1) % dots.length;
+  slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+  dots.forEach(d=>d.classList.remove("ativo"));
+  dots[slideIndex].classList.add("ativo");
+}, 4000);
 
 /* MENU */
 function abrirMenu(){
-menu.classList.add("ativo");
-menuOverlay.style.display="block";
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
 }
+
 function fecharMenu(){
-menu.classList.remove("ativo");
-menuOverlay.style.display="none";
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
 }
+
 function irPara(p){
-window.location.href=p;
+  window.location.href = p;
 }
 
 /* SISTEMA */
-let origem=null,parada=null,destino=null,modo=null;
+let origem = null;
+let destino = null;
+let modo = null;
 
-const modal=document.getElementById("modal");
-const lista=document.getElementById("lista");
-const busca=document.getElementById("busca");
-const confirmarBtn=document.getElementById("confirmar");
+const modal = document.getElementById("modal");
+const lista = document.getElementById("lista");
+const busca = document.getElementById("busca");
+const confirmarBtn = document.getElementById("confirmar");
 
 function abrirModal(tipo){
-if(tipo!=="origem"&&!origem){alert("Selecione a origem primeiro.");return;}
-modo=tipo;
-busca.value="";
-modal.style.display="flex";
+  if(tipo !== "origem" && !origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
 
-let dados=[];
-if(tipo==="origem") dados=DataManager.listarOrigens();
-if(tipo==="destino") dados=DataManager.listarDestinos(origem);
+  modo = tipo;
+  busca.value = "";
+  modal.style.display = "flex";
 
-renderLista(dados);
+  let dados = tipo === "origem"
+    ? DataManager.listarOrigens()
+    : DataManager.listarDestinos(origem);
+
+  renderLista(dados);
 }
 
 function renderLista(arr){
-lista.innerHTML="";
-arr.forEach(item=>{
-const div=document.createElement("div");
-div.innerText=item;
-div.onclick=()=>{
-selecionar(item);
-modal.style.display="none";
-};
-lista.appendChild(div);
-});
+  lista.innerHTML = "";
+
+  arr.forEach(item=>{
+    const div = document.createElement("div");
+    div.innerText = item;
+
+    div.onclick = ()=>{
+      selecionar(item);
+      modal.style.display = "none";
+    };
+
+    lista.appendChild(div);
+  });
 }
 
 function selecionar(valor){
-if(modo==="origem"){
-origem=valor;
-origemTexto.innerText=valor;
-destino=null;
-destinoTexto.innerText="Selecionar destino";
-}
-if(modo==="destino"){
-destino=valor;
-destinoTexto.innerText=valor;
-}
-confirmarBtn.disabled=!(origem&&destino);
+  if(modo === "origem"){
+    origem = valor;
+    origemTexto.innerText = valor;
+
+    destino = null;
+    destinoTexto.innerText = "Selecionar destino";
+  }
+
+  if(modo === "destino"){
+    destino = valor;
+    destinoTexto.innerText = valor;
+  }
+
+  confirmarBtn.disabled = !(origem && destino);
 }
 
-origemBtn.onclick=()=>abrirModal("origem");
-destinoBtn.onclick=()=>abrirModal("destino");
+origemBtn.onclick = ()=>abrirModal("origem");
+destinoBtn.onclick = ()=>abrirModal("destino");
 
 /* VEÍCULO */
-const tipoCarroBtn=document.getElementById("tipoCarroBtn");
-const modalTipoCarro=document.getElementById("modalTipoCarro");
-const tipoCarroTexto=document.getElementById("tipoCarroTexto");
-const tipoCarroInput=document.getElementById("tipoCarro");
-
-tipoCarroBtn.onclick=()=>modalTipoCarro.style.display="flex";
+tipoCarroBtn.onclick = ()=>modalTipoCarro.style.display="flex";
 
 document.querySelectorAll("#modalTipoCarro .rf-option").forEach(op=>{
-op.onclick=()=>{
-tipoCarroInput.value=op.dataset.value;
-tipoCarroTexto.innerText=op.innerText;
-modalTipoCarro.style.display="none";
-};
+  op.onclick = ()=>{
+    tipoCarro.value = op.dataset.value;
+    tipoCarroTexto.innerText = op.innerText;
+    modalTipoCarro.style.display = "none";
+  };
 });
 
-modalTipoCarro.onclick=e=>{
-if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
+modalTipoCarro.onclick = e=>{
+  if(e.target === modalTipoCarro){
+    modalTipoCarro.style.display = "none";
+  }
 };
 
 /* CONFIRMAR */
-confirmarBtn.onclick=()=>{
-const valor=DataManager.buscarValor(origem,destino)||0;
-const tipoCarro=parseFloat(tipoCarroInput.value);
+confirmarBtn.onclick = ()=>{
+  const valor = DataManager.buscarValor(origem, destino) || 0;
 
-localStorage.setItem("rf_corrida_temp",JSON.stringify({
-origem,destino,valor,categoria:tipoCarro
-}));
+  localStorage.setItem("gfv_corrida", JSON.stringify({
+    origem,
+    destino,
+    valor,
+    categoria: parseFloat(tipoCarro.value)
+  }));
 
-window.location.href="resumo.html";
+  window.location.href = "resumo.html";
 };
 
 /* TEMA */
 (function(){
-const temaSalvo=localStorage.getItem("rf_theme")||"dark";
-document.body.setAttribute("data-theme",temaSalvo);
+  const tema = localStorage.getItem("gfv_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
 })();
 
 </script>
+
 </body>
 </html>
