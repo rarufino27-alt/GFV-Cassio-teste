@@ -299,3 +299,37 @@ button:active {
   text-decoration: none;
   font-weight: 600;
 }
+
+/* =========================
+   PÁGINAS INTERNAS (TERMOS)
+========================= */
+
+.page {
+  display: none;
+  animation: fade 0.25s ease;
+
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.page h2 {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.page ul {
+  padding-left: 18px;
+  margin-top: 10px;
+}
+
+/* ANIMAÇÃO */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
