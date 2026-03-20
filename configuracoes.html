@@ -3,210 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Configurações - RF Driver</title>
+<title>Configurações - GFV Viagens</title>
 
-<style>
+<!-- CSS PADRÃO -->
+<link rel="stylesheet" href="theme.css/theme.css">
+<link rel="stylesheet" href="theme.css/layout.css">
+<link rel="stylesheet" href="theme.css/components.css">
 
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-background:#0f0f0f;
-color:#fff;
-transition:0.3s;
-}
-
-/* TEMA CLARO */
-
-body[data-theme="light"]{
-background:#f3f3f3;
-color:#000;
-}
-
-body[data-theme="light"] .card{
-background:#ffffff;
-border:1px solid rgba(0,0,0,.08);
-}
-
-body[data-theme="light"] .option{
-border-bottom:1px solid rgba(0,0,0,.08);
-}
-
-/* HEADER */
-
-.top-white{
-background:#ffffff;
-padding:20px 20px 28px 20px;
-display:flex;
-align-items:center;
-border-bottom-left-radius:32px;
-border-bottom-right-radius:32px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.logo-img{
-height:60px;
-border-radius:16px;
-}
-
-/* TITULO */
-
-h1{
-color:#facc15;
-margin:30px 20px 10px;
-}
-
-/* CONTAINER */
-
-.container{
-padding:0 20px 40px;
-}
-
-/* CARD */
-
-.card{
-background:#1c1c1c;
-border-radius:20px;
-padding:20px;
-margin-bottom:20px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-/* TITULO CARD */
-
-.card-title{
-font-weight:700;
-margin-bottom:10px;
-color:#facc15;
-}
-
-/* OPÇÕES */
-
-.option{
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-display:flex;
-justify-content:space-between;
-align-items:center;
-cursor:pointer;
-}
-
-.option:last-child{
-border-bottom:none;
-}
-
-.option:hover{
-opacity:.8;
-}
-
-/* BADGE */
-
-.badge{
-font-size:12px;
-background:#facc15;
-color:#000;
-padding:3px 8px;
-border-radius:20px;
-}
-
-/* LINK */
-
-a{
-color:#facc15;
-text-decoration:none;
-font-weight:600;
-}
-
-</style>
 </head>
-<body>
+<body data-theme="dark">
 
-<div class="top-white">
-<img src="icons/icon-192.png" class="logo-img">
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="logo-area">
+    <img src="icons/icon-192.png" class="logo-img">
+    <span class="logo-text">GFV VIAGENS</span>
+  </div>
 </div>
 
-<h1>Configurações</h1>
-
+<!-- CONTAINER -->
 <div class="container">
 
-<div class="card">
-<div class="card-title">Preferências</div>
+  <div class="titulo">
+    Configurações
+  </div>
 
-<div class="option" onclick="alternarTema()">
-Alternar tema
-<span id="temaAtual"></span>
+  <!-- CARD PREFERÊNCIAS -->
+  <div class="card">
+
+    <div class="card-title">Preferências</div>
+
+    <div class="option" onclick="alternarTema()">
+      <span>Alternar tema</span>
+      <span id="temaAtual"></span>
+    </div>
+
+  </div>
+
+  <!-- CARD SISTEMA -->
+  <div class="card">
+
+    <div class="card-title">Sistema</div>
+
+    <div class="option">
+      <span>Versão do aplicativo</span>
+      <span>1.0.1</span>
+    </div>
+
+    <div class="option" onclick="abrirSuporte()">
+      <span>Contato do suporte</span>
+      <span>WhatsApp</span>
+    </div>
+
+  </div>
+
+  <!-- VOLTAR -->
+  <div style="margin-top:10px;">
+    <a href="index.html" class="link-voltar">← Voltar</a>
+  </div>
+
 </div>
 
-</div>
-
-<div class="card">
-<div class="card-title">Sistema</div>
-
-<div class="option">
-Versão do aplicativo
-<span>1.0.1</span>
-</div>
-
-<div class="option" onclick="abrirSuporte()">
-Contato do suporte
-<span>WhatsApp</span>
-</div>
-
-</div>
-
-<br>
-<a href="index.html">← Voltar</a>
-
-</div>
-  
 <script>
 
-/* CARREGAR TEMA SALVO */
-
+/* =========================
+   TEMA (PADRÃO GLOBAL)
+========================= */
 (function(){
-
-const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
-document.body.setAttribute("data-theme", temaSalvo);
-
-atualizarLabel();
-
+  const tema = localStorage.getItem("gfv_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
+  atualizarLabel();
 })();
 
-/* ALTERNAR TEMA */
-
 function alternarTema(){
+  const atual = document.body.getAttribute("data-theme");
+  const novo = atual === "dark" ? "light" : "dark";
 
-const atual = document.body.getAttribute("data-theme");
+  document.body.setAttribute("data-theme", novo);
+  localStorage.setItem("gfv_theme", novo);
 
-const novo = atual === "dark" ? "light" : "dark";
-
-document.body.setAttribute("data-theme", novo);
-
-localStorage.setItem("rf_theme", novo);
-
-atualizarLabel();
-
+  atualizarLabel();
 }
-
-/* LABEL DO TEMA */
 
 function atualizarLabel(){
+  const atual = document.body.getAttribute("data-theme");
 
-const atual = document.body.getAttribute("data-theme");
-
-document.getElementById("temaAtual").innerText =
-atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
-
+  document.getElementById("temaAtual").innerText =
+    atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
 }
 
-/* SUPORTE WHATSAPP */
-
+/* =========================
+   SUPORTE
+========================= */
 function abrirSuporte(){
-
-const mensagem = encodeURIComponent("Olá, preciso de suporte no aplicativo RF.");
-
-window.open(`https://wa.me/5581989823239?text=${mensagem}`, "_blank");
-
+  const mensagem = encodeURIComponent("Olá, preciso de suporte no aplicativo GFV.");
+  window.open(`https://wa.me/5581989823239?text=${mensagem}`, "_blank");
 }
 
 </script>
