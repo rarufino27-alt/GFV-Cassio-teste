@@ -145,18 +145,18 @@ body {
 
 /* ALTURA REAL DO SLIDE */
 .slide-box {
-  min-height: 140px; /* ESSENCIAL */
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-
+  min-height: 140px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  text-align: left;
 }
+
+body[data-theme="light"] .slide-box h2 { color:#111; }
+body[data-theme="light"] .slide-box p { color:#555; }
+
+body[data-theme="dark"] .slide-box h2 { color:#fff; }
+body[data-theme="dark"] .slide-box p { color:#ccc; }
 
 /* TEXTO */
 .slide-box h2 {
