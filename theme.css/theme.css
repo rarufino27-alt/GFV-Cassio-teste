@@ -55,6 +55,17 @@ body[data-theme="light"] {
 }
 
 /* =========================
+   INPUTS LIGHT (GFV)
+========================= */
+body[data-theme="light"] .rf-select,
+body[data-theme="light"] input,
+body[data-theme="light"] textarea {
+  background: #f3f4f6;
+  color: #111;
+
+  border: 1px solid rgba(0,0,0,0.1);
+}
+/* =========================
    CARD (LIGHT)
 ========================= */
 body[data-theme="light"] .card {
