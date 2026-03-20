@@ -7,7 +7,7 @@
   --primary-dark: #cc4718;
 
   /* FUNDO */
-  --bg-dark: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 60%, #000 100%);
+  --bg-dark: linear-gradient(180deg, #0a0a0a 0%, #111827 100%);
   --background: #0f172a;
 
   /* CARDS */
@@ -42,7 +42,7 @@ body {
    LIGHT MODE
 ========================= */
 body[data-theme="light"] {
-  --background: #f3f4f6;
+  background: linear-gradient(180deg, #f8fafc, #e5e7eb);
   --card: #ffffff;
 
   --text: #111111;
