@@ -58,10 +58,11 @@ body[data-theme="light"] {
    CARD (LIGHT)
 ========================= */
 body[data-theme="light"] .card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: #ffffff;
 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.08),
+    0 5px 10px rgba(0,0,0,0.05);
 }
 
 /* =========================
