@@ -5,308 +5,149 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Regulamento Operacional - GFV</title>
+<title>Regulamento - GFV Viagens</title>
 
-<style>
-
-:root{
-  --gold:#D6B85F;
-  --gold-strong:#F4D97A;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-}
-
-body{
-background: radial-gradient(circle at top,#1A2133 0%,#080A12 70%);
-color:#fff;
-min-height:100vh;
-}
-
-/* HEADER */
-
-.top-white{
-background:#ffffff;
-padding:20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom-left-radius:28px;
-border-bottom-right-radius:28px;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.logo-img{
-height:42px;
-border-radius:12px;
-}
-
-.logo-text-dark{
-font-weight:800;
-color:#111;
-}
-
-.back-btn{
-font-size:22px;
-cursor:pointer;
-color:#111;
-}
-
-/* CONTAINER */
-
-.container{
-padding:25px 16px 60px;
-max-width:480px;
-margin:auto;
-}
-
-/* TITULO */
-
-.title{
-font-size:24px;
-color:var(--gold);
-margin-bottom:8px;
-font-weight:700;
-}
-
-.intro{
-opacity:.7;
-margin-bottom:20px;
-font-size:14px;
-}
-
-/* CARDS */
-
-.card{
-background:rgba(255,255,255,0.04);
-border-radius:16px;
-padding:16px;
-margin-bottom:10px;
-display:flex;
-align-items:center;
-gap:12px;
-cursor:pointer;
-border:1px solid rgba(214,184,95,0.15);
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-2px);
-background:rgba(255,255,255,0.06);
-}
-
-.icon{
-font-size:18px;
-}
-
-.card span{
-font-size:15px;
-}
-
-.num{
-color:var(--gold);
-font-weight:bold;
-}
-
-/* PAGE */
-
-.page{
-display:none;
-animation:fade .25s ease;
-line-height:1.6;
-font-size:14px;
-}
-
-.page h2{
-color:var(--gold);
-margin-bottom:10px;
-}
-
-.back{
-margin-top:25px;
-display:inline-block;
-color:var(--gold);
-cursor:pointer;
-}
-
-ul{
-padding-left:18px;
-margin-top:10px;
-}
-
-/* ANIMAÇÃO */
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* LIGHT MODE */
-
-body[data-theme="light"]{
-background:#f3f4f6;
-color:#111;
-}
-
-body[data-theme="light"] .card{
-background:#ffffff;
-border:1px solid rgba(0,0,0,.08);
-}
-
-body[data-theme="light"] .top-white{
-background:#ffffff;
-}
-
-</style>
+<link rel="stylesheet" href="theme.css/theme.css">
+<link rel="stylesheet" href="theme.css/layout.css">
+<link rel="stylesheet" href="theme.css/components.css">
 
 </head>
 
-<body>
+<body data-theme="dark">
 
 <!-- HEADER -->
+<div class="top-bar">
 
-<div class="top-white">
+  <div class="logo-area">
+    <img src="logo.png" class="logo-img">
+    <span class="logo-text">GFV VIAGENS</span>
+  </div>
 
-<div class="logo-area">
-<img src="logo.png" class="logo-img">
-<span class="logo-text-dark">GFV MOTORISTA</span>
+  <div class="menu-btn" onclick="voltarHome()">←</div>
+
 </div>
 
-<div class="back-btn" onclick="voltarHome()">←</div>
-
-</div>
-
+<!-- CONTAINER -->
 <div class="container">
 
-<div id="menu">
+  <!-- MENU -->
+  <div id="menu">
 
-<div class="title">
-Regulamento Operacional
-</div>
+    <div class="titulo">
+      Regulamento Operacional
+    </div>
 
-<div class="intro">
-Escolha um tópico para visualizar as regras completas.
-</div>
+    <p style="text-align:center; color:var(--text-secondary); margin-bottom:15px;">
+      Escolha um tópico para visualizar as regras completas.
+    </p>
 
-<div class="card" onclick="openPage('r1')">
-<div class="icon">📍</div>
-<span><span class="num">1.</span> Localização</span>
-</div>
+    <div class="card" onclick="openPage('r1')">
+      📍 <span><strong>1.</strong> Localização</span>
+    </div>
 
-<div class="card" onclick="openPage('r2')">
-<div class="icon">🚗</div>
-<span><span class="num">2.</span> Condições do Veículo</span>
-</div>
+    <div class="card" onclick="openPage('r2')">
+      🚗 <span><strong>2.</strong> Condições do Veículo</span>
+    </div>
 
-<div class="card" onclick="openPage('r3')">
-<div class="icon">📲</div>
-<span><span class="num">3.</span> Solicitação de Viagens</span>
-</div>
+    <div class="card" onclick="openPage('r3')">
+      📲 <span><strong>3.</strong> Solicitação de Viagens</span>
+    </div>
 
-<div class="card" onclick="openPage('r4')">
-<div class="icon">💰</div>
-<span><span class="num">4.</span> Taxas Adicionais</span>
-</div>
+    <div class="card" onclick="openPage('r4')">
+      💰 <span><strong>4.</strong> Taxas Adicionais</span>
+    </div>
 
-<div class="card" onclick="openPage('r5')">
-<div class="icon">📅</div>
-<span><span class="num">5.</span> Taxa Semanal</span>
-</div>
+    <div class="card" onclick="openPage('r5')">
+      📅 <span><strong>5.</strong> Taxa Semanal</span>
+    </div>
 
-<div class="card" onclick="openPage('r6')">
-<div class="icon">⭐</div>
-<span><span class="num">6.</span> Prioridade de Atendimento</span>
-</div>
+    <div class="card" onclick="openPage('r6')">
+      ⭐ <span><strong>6.</strong> Prioridade</span>
+    </div>
 
-<div class="card" onclick="openPage('r7')">
-<div class="icon">⚠️</div>
-<span><span class="num">7.</span> Medidas Disciplinares</span>
-</div>
+    <div class="card" onclick="openPage('r7')">
+      ⚠️ <span><strong>7.</strong> Medidas Disciplinares</span>
+    </div>
 
-<div class="card" onclick="openPage('r8')">
-<div class="icon">❌</div>
-<span><span class="num">8.</span> Cancelamento</span>
-</div>
+    <div class="card" onclick="openPage('r8')">
+      ❌ <span><strong>8.</strong> Cancelamento</span>
+    </div>
 
-<div class="card" onclick="openPage('r9')">
-<div class="icon">⏱</div>
-<span><span class="num">9.</span> Tempo de Resposta</span>
-</div>
+    <div class="card" onclick="openPage('r9')">
+      ⏱ <span><strong>9.</strong> Tempo de Resposta</span>
+    </div>
 
-<div class="card" onclick="openPage('r10')">
-<div class="icon">📆</div>
-<span><span class="num">10.</span> Reserva de Corridas</span>
-</div>
+    <div class="card" onclick="openPage('r10')">
+      📆 <span><strong>10.</strong> Reserva</span>
+    </div>
 
-<div class="card" onclick="openPage('r11')">
-<div class="icon">📊</div>
-<span><span class="num">11.</span> Ordem de Atendimento</span>
-</div>
+    <div class="card" onclick="openPage('r11')">
+      📊 <span><strong>11.</strong> Ordem de Atendimento</span>
+    </div>
 
-</div>
+  </div>
 
-<!-- REGRA -->
+  <!-- PÁGINA 1 -->
+  <div id="r1" class="page">
 
-<div id="r1" class="page">
+    <h2>1. Localização</h2>
 
-<h2>1. Localização</h2>
+    <p>Para participar das solicitações de viagens, é obrigatório manter a localização ativa no grupo.</p>
 
-<p>Para participar das solicitações de viagens, é obrigatório manter a localização ativa no grupo.</p>
+    <ul>
+      <li>Manter localização ativa por 8 horas</li>
+      <li>Pode perder prioridade sem localização</li>
+      <li>Administradores não são obrigados</li>
+    </ul>
 
-<ul>
-<li>Manter localização ativa por 8 horas</li>
-<li>Pode perder prioridade sem localização</li>
-<li>Administradores não são obrigados</li>
-</ul>
+    <div class="link-voltar" onclick="back()">← Voltar</div>
 
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
+  </div>
 
 </div>
 
 <script>
 
+/* =========================
+   NAVEGAÇÃO
+========================= */
 function openPage(id){
-document.getElementById("menu").style.display="none"
-document.querySelectorAll(".page").forEach(p=>p.style.display="none")
-document.getElementById(id).style.display="block"
+  document.getElementById("menu").style.display = "none";
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.style.display = "none";
+  });
+
+  document.getElementById(id).style.display = "block";
 }
 
 function back(){
-document.getElementById("menu").style.display="block"
-document.querySelectorAll(".page").forEach(p=>p.style.display="none")
+  document.getElementById("menu").style.display = "block";
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.style.display = "none";
+  });
 }
 
 function voltarHome(){
-window.location.href="home.html"
+  window.location.href = "index.html";
 }
 
-history.pushState(null,null,location.href)
+/* =========================
+   BOTÃO VOLTAR DO CELULAR
+========================= */
+history.pushState(null,null,location.href);
 
-window.onpopstate=function(){
-window.location.href="termos.html"
-}
+window.onpopstate = function(){
+  window.location.href = "index.html";
+};
 
+/* =========================
+   TEMA GLOBAL
+========================= */
 (function(){
-const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-document.body.setAttribute("data-theme", temaSalvo);
+  const tema = localStorage.getItem("gfv_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
 })();
 
 </script>
