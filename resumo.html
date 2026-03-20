@@ -64,6 +64,53 @@ body[data-theme="dark"] .rf-select {
   color: #fff;
 }
 
+  /* ===== BOTÃO GLOW ===== */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%);
+  opacity: 0;
+
+  transition: 0.4s;
+}
+
+button:active::after {
+  opacity: 1;
+}
+
+/* ===== VALOR PULSE ===== */
+@keyframes pulseValor {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.valor-animando {
+  animation: pulseValor 0.3s ease;
+}
+
+/* ===== LINHA HIGHLIGHT ===== */
+.linha {
+  transition: all 0.3s ease;
+}
+
+.linha.ativa {
+  background: rgba(255,90,31,0.1);
+  padding: 6px;
+  border-radius: 8px;
+}
+
+/* ===== HOVER TOUCH ===== */
+button:active {
+  transform: scale(0.96);
+}
 </style>
 </head>
 
@@ -220,50 +267,73 @@ function adicionalNoturno(base){
 /* CALCULO */
 function calcular(){
 
-  let base = parseFloat(valor) || 0;
-  let total = base;
+let base = parseFloat(valor) || 0;
+let total = base;
 
-  let html = "";
+let html = "";
 
-  const feira = parseFloat(feiraEl.value) || 0;
-  const animal = parseFloat(animalEl.value) || 0;
-  const praia = parseFloat(saidaPraiaEl.value) || 0;
-  const espera = parseFloat(esperaEl.value) || 0;
+const feira = parseFloat(feiraEl.value) || 0;
+const animal = parseFloat(animalEl.value) || 0;
+const praia = parseFloat(saidaPraiaEl.value) || 0;
+const espera = parseFloat(esperaEl.value) || 0;
 
-  const noturno = adicionalNoturno(base);
+const noturno = adicionalNoturno(base);
 
-  html += `<div class="linha"><span>Valor base</span><span>R$ ${base.toFixed(2)}</span></div>`;
+// FUNÇÃO DE LINHA PADRÃO (COM DESTAQUE)
+function linha(nome, valor){
+return `       <div class="linha ativa">         <span>${nome}</span>         <span>R$ ${valor.toFixed(2)}</span>       </div>
+    `;
+}
 
-  if(noturno > 0){
-    html += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
-    total += noturno;
-  }
+// BASE
+html += `     <div class="linha">       <span>Valor base</span>       <span>R$ ${base.toFixed(2)}</span>     </div>
+  `;
 
-  if(feira > 0){
-    html += `<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
-    total += feira;
-  }
+// NOTURNO
+if(noturno > 0){
+html += linha("Adicional Noturno", noturno);
+total += noturno;
+}
 
-  if(animal > 0){
-    html += `<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
-    total += animal;
-  }
+// FEIRA
+if(feira > 0){
+html += linha("Feira", feira);
+total += feira;
+}
 
-  if(praia > 0){
-    html += `<div class="linha"><span>Saída Praia</span><span>R$ ${praia.toFixed(2)}</span></div>`;
-    total += praia;
-  }
+// ANIMAL
+if(animal > 0){
+html += linha("Animal", animal);
+total += animal;
+}
 
-  if(espera > 5){
-    let val = 3 + ((espera - 5) * 0.6);
-    html += `<div class="linha"><span>Espera</span><span>R$ ${val.toFixed(2)}</span></div>`;
-    total += val;
-  }
+// PRAIA
+if(praia > 0){
+html += linha("Saída Praia", praia);
+total += praia;
+}
 
-  html += `<div class="total-box">Total: R$ ${total.toFixed(2)}</div>`;
+// ESPERA
+if(espera > 5){
+let val = 3 + ((espera - 5) * 0.6);
+html += linha("Espera", val);
+total += val;
+}
 
-  document.getElementById("detalhe").innerHTML = html;
-  document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
+// TOTAL
+html += `     <div class="total-box">
+      Total: R$ ${total.toFixed(2)}     </div>
+  `;
+
+document.getElementById("detalhe").innerHTML = html;
+
+// ANIMAÇÃO DO VALOR
+animarValor(total);
+
+// VIBRAÇÃO (MOBILE)
+if (navigator.vibrate) {
+navigator.vibrate(10);
+}
 }
 
 /* ELEMENTOS */
@@ -273,9 +343,39 @@ const saidaPraiaEl = document.getElementById("saidaPraia");
 const esperaEl = document.getElementById("espera");
 
 document.querySelectorAll("select,input").forEach(e=>{
-  e.addEventListener("change", calcular);
+e.addEventListener("change", calcular);
 });
 
+  function animarValor(final){
+
+  const el = document.getElementById("valorFinal");
+
+  el.classList.add("valor-animando");
+
+  setTimeout(()=>{
+    el.classList.remove("valor-animando");
+  }, 300);
+
+  let atual = parseFloat(el.innerText.replace("R$","").replace(",",".") || 0);
+
+  let passo = (final - atual) / 10;
+  let i = 0;
+
+  const intervalo = setInterval(()=>{
+    atual += passo;
+    i++;
+
+    el.innerText = "R$ " + atual.toFixed(2);
+
+    if(i >= 10){
+      el.innerText = "R$ " + final.toFixed(2);
+      clearInterval(intervalo);
+    }
+
+  }, 20);
+
+}
+  
 /* WHATSAPP */
 function solicitar(){
 
